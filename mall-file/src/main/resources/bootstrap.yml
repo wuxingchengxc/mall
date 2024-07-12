@@ -1,0 +1,27 @@
+server:
+  port: 11032
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: mall-file
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+      discovery:
+        server-addr: 127.0.0.1:8848
+# 本地文件上传
+file:
+  domain: http://127.0.0.1:11032
+  path: /users/xingcheng/Work/source/study/mall/upload
+  prefix: /statics
+
+# Minio配置
+minio:
+  url: http://127.0.0.1:9000
+  accessKey: minioadmin
+  secretKey: minioadmin
+  bucketName: test

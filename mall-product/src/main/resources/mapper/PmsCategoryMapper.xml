@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingcheng.mapper.PmsCategoryMapper">
+
+    <resultMap type="com.xingcheng.domain.PmsCategory" id="PmsCategoryMap">
+        <result property="catId" column="cat_id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="parentCid" column="parent_cid" jdbcType="INTEGER"/>
+        <result property="catLevel" column="cat_level" jdbcType="INTEGER"/>
+        <result property="showStatus" column="show_status" jdbcType="INTEGER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="productUnit" column="product_unit" jdbcType="VARCHAR"/>
+        <result property="productCount" column="product_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="catId" useGeneratedKeys="true">
+        insert into mall_pms.pms_category(name, parent_cid, cat_level, show_status, sort, icon, product_unit, product_count)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.name}, #{entity.parentCid}, #{entity.catLevel}, #{entity.showStatus}, #{entity.sort}, #{entity.icon}, #{entity.productUnit}, #{entity.productCount})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="catId" useGeneratedKeys="true">
+        insert into mall_pms.pms_category(name, parent_cid, cat_level, show_status, sort, icon, product_unit, product_count)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.name}, #{entity.parentCid}, #{entity.catLevel}, #{entity.showStatus}, #{entity.sort}, #{entity.icon}, #{entity.productUnit}, #{entity.productCount})
+        </foreach>
+        on duplicate key update
+         name = values(name) , parent_cid = values(parent_cid) , cat_level = values(cat_level) , show_status = values(show_status) , sort = values(sort) , icon = values(icon) , product_unit = values(product_unit) , product_count = values(product_count)     </insert>
+
+</mapper>
+

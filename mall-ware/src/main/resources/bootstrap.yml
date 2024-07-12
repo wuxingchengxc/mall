@@ -1,0 +1,47 @@
+server:
+  port: 8011
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: mall-wms
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 127.0.0.1:8848
+      discovery:
+        server-addr: 127.0.0.1:8848
+    openfeign:
+      client:
+        config:
+          default:
+            #连接超时时间
+            connectTimeout: 3000000
+            #读取超时时间
+            readTimeout: 3000000
+      # 使用httpclient5 开启调用
+      httpclient:
+        hc5:
+          enabled: true
+      # 启动请求压缩
+      compression:
+        request:
+          enabled: true
+          min-request-size: 2048 #最小触发压缩的大小
+          mime-types: text/xml,application/xml,application/json #触发压缩数据类型
+        response:
+          enabled: true
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mall_wms?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+

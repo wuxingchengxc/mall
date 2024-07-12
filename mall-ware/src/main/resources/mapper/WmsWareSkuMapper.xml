@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingcheng.mapper.WmsWareSkuMapper">
+
+    <resultMap type="com.xingcheng.domain.WmsWareSku" id="WmsWareSkuMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="skuId" column="sku_id" jdbcType="INTEGER"/>
+        <result property="wareId" column="ware_id" jdbcType="INTEGER"/>
+        <result property="stock" column="stock" jdbcType="INTEGER"/>
+        <result property="skuName" column="sku_name" jdbcType="VARCHAR"/>
+        <result property="stockLocked" column="stock_locked" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mall_wms.wms_ware_sku(sku_id, ware_id, stock, sku_name, stock_locked)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.skuId}, #{entity.wareId}, #{entity.stock}, #{entity.skuName}, #{entity.stockLocked})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mall_wms.wms_ware_sku(sku_id, ware_id, stock, sku_name, stock_locked)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.skuId}, #{entity.wareId}, #{entity.stock}, #{entity.skuName}, #{entity.stockLocked})
+        </foreach>
+        on duplicate key update
+         sku_id = values(sku_id) , ware_id = values(ware_id) , stock = values(stock) , sku_name = values(sku_name) , stock_locked = values(stock_locked)     </insert>
+
+</mapper>
+

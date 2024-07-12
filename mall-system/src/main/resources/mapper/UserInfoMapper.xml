@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingcheng.mapper.UserInfoMapper">
+
+    <resultMap type="com.xingcheng.domain.UserInfo" id="UserInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="INTEGER"/>
+        <result property="memo" column="memo" jdbcType="VARCHAR"/>
+        <result property="openId" column="open_id" jdbcType="VARCHAR"/>
+        <result property="unionId" column="union_id" jdbcType="VARCHAR"/>
+        <result property="lastLoginIp" column="last_login_ip" jdbcType="VARCHAR"/>
+        <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDeleted" column="is_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mall-sys.user_info(username, password, nick_name, phone, avatar, sex, memo, open_id, union_id, last_login_ip, last_login_time, status, create_time, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.username}, #{entity.password}, #{entity.nickName}, #{entity.phone}, #{entity.avatar}, #{entity.sex}, #{entity.memo}, #{entity.openId}, #{entity.unionId}, #{entity.lastLoginIp}, #{entity.lastLoginTime}, #{entity.status}, #{entity.createTime}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mall-sys.user_info(username, password, nick_name, phone, avatar, sex, memo, open_id, union_id, last_login_ip, last_login_time, status, create_time, update_time, is_deleted)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password}, #{entity.nickName}, #{entity.phone}, #{entity.avatar}, #{entity.sex}, #{entity.memo}, #{entity.openId}, #{entity.unionId}, #{entity.lastLoginIp}, #{entity.lastLoginTime}, #{entity.status}, #{entity.createTime}, #{entity.updateTime}, #{entity.isDeleted})
+        </foreach>
+        on duplicate key update
+         username = values(username) , password = values(password) , nick_name = values(nick_name) , phone = values(phone) , avatar = values(avatar) , sex = values(sex) , memo = values(memo) , open_id = values(open_id) , union_id = values(union_id) , last_login_ip = values(last_login_ip) , last_login_time = values(last_login_time) , status = values(status) , create_time = values(create_time) , update_time = values(update_time) , is_deleted = values(is_deleted)     </insert>
+
+</mapper>
+

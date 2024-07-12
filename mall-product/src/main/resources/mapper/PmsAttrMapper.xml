@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingcheng.mapper.PmsAttrMapper">
+
+    <resultMap type="com.xingcheng.domain.PmsAttr" id="PmsAttrMap">
+        <result property="attrId" column="attr_id" jdbcType="INTEGER"/>
+        <result property="attrName" column="attr_name" jdbcType="VARCHAR"/>
+        <result property="searchType" column="search_type" jdbcType="INTEGER"/>
+        <result property="icon" column="icon" jdbcType="VARCHAR"/>
+        <result property="valueSelect" column="value_select" jdbcType="VARCHAR"/>
+        <result property="attrType" column="attr_type" jdbcType="INTEGER"/>
+        <result property="enable" column="enable" jdbcType="INTEGER"/>
+        <result property="catelogId" column="catelog_id" jdbcType="INTEGER"/>
+        <result property="showDesc" column="show_desc" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="attrId" useGeneratedKeys="true">
+        insert into mall_pms.pms_attr(attr_name, search_type, icon, value_select, attr_type, enable, catelog_id, show_desc)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.attrName}, #{entity.searchType}, #{entity.icon}, #{entity.valueSelect}, #{entity.attrType}, #{entity.enable}, #{entity.catelogId}, #{entity.showDesc})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="attrId" useGeneratedKeys="true">
+        insert into mall_pms.pms_attr(attr_name, search_type, icon, value_select, attr_type, enable, catelog_id, show_desc)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.attrName}, #{entity.searchType}, #{entity.icon}, #{entity.valueSelect}, #{entity.attrType}, #{entity.enable}, #{entity.catelogId}, #{entity.showDesc})
+        </foreach>
+        on duplicate key update
+         attr_name = values(attr_name) , search_type = values(search_type) , icon = values(icon) , value_select = values(value_select) , attr_type = values(attr_type) , enable = values(enable) , catelog_id = values(catelog_id) , show_desc = values(show_desc)     </insert>
+
+</mapper>
+

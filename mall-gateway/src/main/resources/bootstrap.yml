@@ -1,0 +1,51 @@
+server:
+  port: 66
+spring:
+  # 移除以来解决web jar包冲突
+  main:
+    web-application-type: reactive
+  # 配置返回日期格式化
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 118.89.69.195:8848
+      discovery:
+        server-addr: 118.89.69.195:8848
+    gateway:
+#      解决跨域问题
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowedOriginPatterns: "*"
+            allowCredentials: true
+#      路由
+      routes:
+        # pms
+        - id: mall-pms-routes
+          uri: lb://mall-pms
+          predicates:
+            - Path=/mall-pms/**
+          filters:
+              - RewritePath=/mall-pms(?<segment>/?.*), $\{segment}
+        # sys
+        - id: mall-sys-routes
+          uri: lb://mall-sys
+          predicates:
+            - Path=/mall-sys/**
+          filters:
+            - RewritePath=/mall-sys(?<segment>/?.*), $\{segment}
+       # sys
+        - id: mall-file
+          uri: lb://mall-file
+          predicates:
+            - Path=/mall-file/**
+          filters:
+            - RewritePath=/mall-file(?<segment>/?.*), $\{segment}

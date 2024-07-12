@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingcheng.mapper.PmsCategoryBrandRelationMapper">
+
+    <resultMap type="com.xingcheng.domain.PmsCategoryBrandRelation" id="PmsCategoryBrandRelationMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="brandId" column="brand_id" jdbcType="INTEGER"/>
+        <result property="catelogId" column="catelog_id" jdbcType="INTEGER"/>
+        <result property="brandName" column="brand_name" jdbcType="VARCHAR"/>
+        <result property="catelogName" column="catelog_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mall_pms.pms_category_brand_relation(brand_id, catelog_id, brand_name, catelog_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.brandId}, #{entity.catelogId}, #{entity.brandName}, #{entity.catelogName})
+        </foreach>
+    </insert>
+    <!-- 批量插入或按主键更新 -->
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into mall_pms.pms_category_brand_relation(brand_id, catelog_id, brand_name, catelog_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.brandId}, #{entity.catelogId}, #{entity.brandName}, #{entity.catelogName})
+        </foreach>
+        on duplicate key update
+         brand_id = values(brand_id) , catelog_id = values(catelog_id) , brand_name = values(brand_name) , catelog_name = values(catelog_name)     </insert>
+
+</mapper>
+

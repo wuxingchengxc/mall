@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.xingcheng</groupId>
+    <artifactId>mall</artifactId>
+    <version>1.0</version>
+    <modules>
+        <module>mall-common</module>
+        <module>mall-api</module>
+
+        <module>mall-product</module>
+        <module>mall-ware</module>
+        <module>mall-order</module>
+        <module>mall-member</module>
+        <module>mall-coupon</module>
+        <module>mall-gateway</module>
+        <module>mall-system</module>
+        <module>mall-file</module>
+    </modules>
+    <packaging>pom</packaging>
+
+    <properties>
+        <pagehelper.version>2.0.0</pagehelper.version>
+        <mybatis.version>3.5.6</mybatis.version>
+        <xingcheng.mall>1.0</xingcheng.mall>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <hutool.version>5.8.25</hutool.version>
+        <lombok.version>1.18.26</lombok.version>
+        <druid.version>1.1.20</druid.version>
+        <mybatis.springboot.version>3.0.2</mybatis.springboot.version>
+        <mysql.version>8.0.11</mysql.version>
+        <knife4j.version>4.3.0</knife4j.version>
+        <fastjson2.version>2.0.40</fastjson2.version>
+        <persistence-api.version>1.0.2</persistence-api.version>
+        <spring.boot.test.version>3.1.5</spring.boot.test.version>
+        <spring.boot.version>3.2.0</spring.boot.version>
+        <spring.cloud.version>2023.0.0</spring.cloud.version>
+        <spring.cloud.alibaba.version>2022.0.0.0-RC2</spring.cloud.alibaba.version>
+    </properties>
+    <!-- 所有继承的子项目 不用规定版本号 子工程都用此版本号 dependencyManagement不是实例 这是规范 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xingcheng</groupId>
+                <artifactId>mall-api-system</artifactId>
+                <version>${xingcheng.mall}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xingcheng</groupId>
+                <artifactId>mall-api-ware</artifactId>
+                <version>${xingcheng.mall}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xingcheng</groupId>
+                <artifactId>mall-api-product</artifactId>
+                <version>${xingcheng.mall}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xingcheng</groupId>
+                <artifactId>mall-api-coupon</artifactId>
+                <version>${xingcheng.mall}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.xingcheng</groupId>
+                <artifactId>mall-common-datasource</artifactId>
+                <version>${xingcheng.mall}</version>
+            </dependency>
+
+            <!-- 核心模块 -->
+            <dependency>
+                <groupId>com.xingcheng</groupId>
+                <artifactId>mall-common-core</artifactId>
+                <version>${xingcheng.mall}</version>
+            </dependency>
+            <!--springboot 3.2.0-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-parent</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springcloud 2023.0.0-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring.cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springcloud alibaba 2022.0.0.0-RC2-->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--SpringBoot集成mybatis-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.springboot.version}</version>
+            </dependency>
+            <!--Mysql数据库驱动8 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!--SpringBoot集成druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>${persistence-api.version}</version>
+            </dependency>
+            <!-- fastjson2 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+            <!-- swagger3  增强-->
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+                <version>${knife4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <!--hutool-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <!-- spring-boot-starter-test -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.test.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+</project>
